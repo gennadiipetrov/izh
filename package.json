@@ -40,6 +40,8 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.4",
+    "@changesets/cli": "^2.27.8",
+    "prettier": "^3.3.3",
     "vitest": "^2.1.1"
   }
 }
