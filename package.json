@@ -1,8 +1,8 @@
 {
   "main": "dist/index.js",
   "name": "izh",
-  "version": "1.0.1",
-  "description": "small library",
+  "version": "1.0.2",
+  "description": "small bus library",
   "keywords": [
     "library",
     "typescript"

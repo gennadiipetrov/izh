@@ -1,3 +1,3 @@
 # izh
 
-Small library
+Small bus library
