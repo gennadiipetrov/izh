@@ -1,15 +1,13 @@
-import { Subject } from "rxjs";
 import type { Packet } from "../packet";
 import type { Transport } from "./transport";
 
 export class TransportContext<Payload> {
     private transport: Transport<Payload> | null = null;
-    private readonly _storeUpdated$: Subject<Packet<Payload>[]> = new Subject<Packet<Payload>[]>();
-    readonly storeUpdated$ = this._storeUpdated$.asObservable();
+    storeUpdated$ = this.transport?.storeUpdated$.asObservable();
 
     constructor(strategy: Transport<Payload>) {
         this.transport = strategy;
-        this._storeUpdated$ = this.transport.storeUpdated$;
+        this.storeUpdated$ = this.transport?.storeUpdated$.asObservable();
     }
 
     put(pkt: Packet<Payload>): void {
@@ -34,6 +32,7 @@ export class TransportContext<Payload> {
         if (this.transport) this.transport.destroy();
         
         this.transport = strategy;
+        this.storeUpdated$ = this.transport?.storeUpdated$.asObservable();
         this.transport.init();
     }
 }

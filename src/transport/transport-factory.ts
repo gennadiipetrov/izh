@@ -1,7 +1,7 @@
-import { WebStorage } from "./client/storage-queue";
+import { WebStorage } from "./client/storage";
 import type { TransportKind } from "./transport";
 import { TransportContext } from "./transport-context";
-import { MemoryQueue } from './client/memory-queue';
+import { MemoryQueue } from './client/memory';
 
 export function createTransport<Payload>(
     transport: TransportKind,

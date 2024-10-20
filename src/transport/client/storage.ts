@@ -1,4 +1,4 @@
-import type { Transport } from './../transport';
+import type { Transport } from '../transport';
 import type { Packet } from "../../packet";
 import { Subject } from 'rxjs';
 import {difference} from 'lodash-es'
@@ -37,11 +37,8 @@ export class WebStorage<Payload> implements Transport<Payload> {
     }
 
     put(pkt: Packet<Payload>): void {
-        const messages = JSON.parse(globalThis.localStorage.getItem(this.key) ?? '');
-        messages.unshift(pkt);
+        const messages = JSON.parse(globalThis.localStorage.getItem(this.key) ?? '[]');
+        messages.unshift(pkt.raw());
         globalThis.localStorage.setItem(this.key, JSON.stringify(messages));
     }
-
-
 }
-

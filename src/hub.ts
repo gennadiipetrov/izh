@@ -8,15 +8,15 @@ export class Hub<Payload> {
     private readonly transportContext?: TransportContext<Payload>;
 
     constructor(
-        private readonly abonents: Abonent<Payload>[],
-        transport: TransportKind,
-        channelName: string
+        private readonly abonents: () => Abonent<Payload>[],
+        private readonly transport: TransportKind,
+        public readonly channelName: string
     ) {
-        this.transportContext = createTransport(transport, channelName);
+        this.transportContext = createTransport(this.transport, channelName);
 
         this.transportContext.storeUpdated$
-            .subscribe(
-                (pkts: Packet<Payload>[]) => this.abonents.forEach(abonent => abonent.checkData$.next(pkts))
+            ?.subscribe(
+                (pkts: Packet<Payload>[]) => this.abonents().forEach(abonent => abonent.checkData$.next(pkts))
             );
     }
 
@@ -24,9 +24,7 @@ export class Hub<Payload> {
         this.transportContext?.deletePacket(packetId);
     }
 
-    put(
-        packet: Packet<Payload>
-    ) {
+    put(packet: Packet<Payload>) {
         this.transportContext?.put(packet);
     }
 }
