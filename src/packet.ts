@@ -1,10 +1,16 @@
 import { nanoid } from 'nanoid';
 
-export class Packet<Payload extends any> {
-  private readonly id: string = nanoid();
+export enum SpecificAbonement {
+    ALL
+}
 
-  constructor(
-    readonly data: Payload | null,
-    readonly key: string,
-  ) {}
+export class Packet<Payload extends any> {
+    readonly id: string = nanoid();
+
+    constructor(
+        readonly data: Payload | null,
+        readonly channelName: string | SpecificAbonement,
+        readonly abonementName: string | SpecificAbonement,
+        readonly abonementId: string,
+    ) {}
 }
